@@ -23,7 +23,7 @@
             font-family: 'Segoe UI', serif;
             line-height: 1.6;
             background-color: #000;
-            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://i.ibb.co/1fpc7wcy/thumb-1920-1129086.png');
+            background-image: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images6.alphacoders.com/112/1129086.jpg');
             background-attachment: fixed;
             background-size: cover;
             background-position: center;
@@ -293,14 +293,14 @@
         <section id="projects">
             <h2>Latest Projects</h2>
             <div class="project-card" onclick="openModal('cpp')">
-                <div class="project-image"><img src="https://via.placeholder.com/300x180/a62b2b/f5e6d3?text=TAO+C2" alt="Project 1"></div>
+                <div class="project-image"><img src="https://i.ibb.co/8gcLqKnG/cplusplus.png" alt="TAO C2 Plus Two"></div>
                 <div class="project-info">
                     <h3>TAO C2 Plus Two!</h3>
                     <p>The TAO C2 Python Framework now made for C plus plus!</p>
                 </div>
             </div>
             <div class="project-card" onclick="openModal('python')">
-                <div class="project-image"><img src="https://via.placeholder.com/300x180/d4af37/1c1c1c?text=TAO+Python" alt="Project 2"></div>
+                <div class="project-image"><img src="https://i.ibb.co/zWLQLpjQ/python.png" alt="TAO Python Framework"></div>
                 <div class="project-info">
                     <h3>TAO C2 Python Framework</h3>
                     <p>A modular windows-based Remote Control & Administration Tool written in Python and C++.</p>
@@ -385,7 +385,7 @@
                 <li><strong>Responsibility:</strong> The author assumes no liability for any misuse of this software or for any damage caused by its application in a manner that violates GitHub's Terms of Service or any legal statutes.</li>
             </ul>
 
-            <a href="#" class="download-btn">Download (Coming Soon)</a>
+            <a href="https://drive.google.com/drive/folders/1NiLiue2wF6ORxdI8xYcH3nFOPRk7Z9X8?usp=sharing" target="_blank" class="download-btn">Download v1.6.2</a>
         </div>
     </div>
 
@@ -429,11 +429,32 @@
                 <li><strong>Responsibility:</strong> The author assumes no liability for any misuse of this software or for any damage caused by its application in a manner that violates GitHub's Terms of Service or any legal statutes.</li>
             </ul>
 
-            <a href="#" class="download-btn">Download (Coming Soon)</a>
+            <a href="https://drive.google.com/drive/folders/17L4GdtwzdHZn9xp444KQjxcJ4EESxGMV?usp=sharing" target="_blank" class="download-btn">Download v1.6</a>
         </div>
     </div>
 
     <script>
+        // Modal Functions
+        function openModal(type) {
+            const modalId = type === 'cpp' ? 'cppModal' : 'pythonModal';
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(type) {
+            const modalId = type === 'cpp' ? 'cppModal' : 'pythonModal';
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+                document.body.style.overflow = 'auto';
+            }
+        }
+
         // GITHUB GISTS POLLING
         async function fetchGists() {
             const container = document.getElementById('gist-container');
@@ -453,6 +474,8 @@
         }
 
         fetchGists();
+        
+        console.log('Scripts loaded successfully');
     </script>
 </body>
 </html>
