@@ -27,7 +27,7 @@
         }
 
         .wrapper {
-            max-width: 850px;
+            max-width: 900px;
             background: var(--hu-tao-brown);
             padding: 40px;
             margin: 40px 20px;
@@ -43,26 +43,18 @@
             margin-bottom: 30px;
         }
 
-        h1 { 
-            color: var(--hu-tao-gold); 
-            font-size: 3rem; 
-            margin: 0;
-            text-shadow: 2px 2px 4px #000;
-        }
+        h1 { color: var(--hu-tao-gold); font-size: 3rem; margin: 0; text-shadow: 2px 2px 4px #000; }
 
         .hu-tao-quote {
             font-style: italic;
             color: var(--hu-tao-text);
             font-size: 1.2rem;
             margin-top: 15px;
-            line-height: 1.4;
         }
 
-        .hu-tao-quote span {
-            color: var(--hu-tao-red);
-            font-weight: bold;
-        }
+        .hu-tao-quote span { color: var(--hu-tao-red); font-weight: bold; }
 
+        /* Social Buttons */
         .social-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -78,7 +70,6 @@
             font-weight: bold;
             color: white;
             border: 1px solid var(--hu-tao-gold);
-            font-size: 0.9rem;
             transition: all 0.3s ease;
         }
 
@@ -100,22 +91,46 @@
             margin-top: 40px;
         }
 
+        /* Side-by-Side Project Layout */
         .project-card {
-            background: rgba(0,0,0,0.2);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border: 1px dashed var(--hu-tao-red);
+            display: flex;
+            align-items: center;
+            background: rgba(0,0,0,0.3);
+            border: 1px solid var(--hu-tao-red);
+            border-radius: 10px;
+            margin-bottom: 25px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
         }
 
+        .project-card:hover { transform: scale(1.01); }
+
+        .project-image {
+            flex: 1;
+            min-width: 250px;
+            height: 180px;
+            background-color: #222;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-info {
+            flex: 2;
+            padding: 20px;
+        }
+
+        .project-info h3 { margin: 0; color: var(--hu-tao-gold); }
+
+        /* Tutorials Grid */
         .video-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
-            margin-top: 10px;
         }
-
-        .video-item { width: 100%; }
 
         .video-container {
             position: relative;
@@ -125,14 +140,14 @@
             border-radius: 5px;
         }
 
-        .video-container iframe {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-        }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
         footer { text-align: center; margin-top: 50px; opacity: 0.6; font-size: 0.8rem; }
 
-        @media (max-width: 600px) {
+        /* Mobile Responsive */
+        @media (max-width: 700px) {
+            .project-card { flex-direction: column; }
+            .project-image { width: 100%; }
             .video-grid { grid-template-columns: 1fr; }
         }
     </style>
@@ -155,13 +170,25 @@
 
         <section id="projects">
             <h2>Latest Projects</h2>
+            
             <div class="project-card">
-                <h3>Ghost-Warden 1.0</h3>
-                <p>A specialized utility designed for high-speed interactions. (Replace with your actual project details!)</p>
+                <div class="project-image">
+                    <img src="https://via.placeholder.com/300x180" alt="Project 1 Screenshot">
+                </div>
+                <div class="project-info">
+                    <h3>Project Name One</h3>
+                    <p>Enter your description here. This project is a special "client" management tool developed specifically for the Wangsheng Funeral Parlor's digital transition.</p>
+                </div>
             </div>
+
             <div class="project-card">
-                <h3>Wangsheng API</h3>
-                <p>A backend service for managing "client" records and afterlife logistics.</p>
+                <div class="project-image">
+                    <img src="https://via.placeholder.com/300x180" alt="Project 2 Screenshot">
+                </div>
+                <div class="project-info">
+                    <h3>Project Name Two</h3>
+                    <p>Another project description goes here. Maybe it's a script to track wandering spirits or a high-speed clicker for automated paper-charm folding!</p>
+                </div>
             </div>
         </section>
 
@@ -182,7 +209,7 @@
         </section>
 
         <footer>
-            <p>&copy; 2026 TAO Official | "Balance must be maintained, and yet destiny cannot be changed."</p>
+            <p>&copy; 2026 TAO Official | "Ai-ya! Time to get to work."</p>
         </footer>
     </div>
 </body>
