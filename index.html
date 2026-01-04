@@ -43,7 +43,6 @@
             margin-bottom: 30px;
         }
 
-        /* Fixed Profile Picture */
         .profile-pic {
             width: 150px;
             height: 150px;
@@ -53,30 +52,16 @@
             overflow: hidden;
             box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
             background-color: #000;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            transition: transform 0.4s ease;
         }
 
-        .profile-pic:hover {
-            transform: scale(1.05) rotate(5deg);
-            box-shadow: 0 0 25px var(--hu-tao-red);
-        }
+        .profile-pic:hover { transform: scale(1.05) rotate(5deg); }
 
-        .profile-pic img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block; /* Ensures no weird gaps */
-        }
+        .profile-pic img { width: 100%; height: 100%; object-fit: cover; }
 
         h1 { color: var(--hu-tao-gold); font-size: 3rem; margin: 0; text-shadow: 2px 2px 4px #000; }
 
-        .hu-tao-quote {
-            font-style: italic;
-            color: var(--hu-tao-text);
-            font-size: 1.2rem;
-            margin-top: 15px;
-        }
-
+        .hu-tao-quote { font-style: italic; color: var(--hu-tao-text); font-size: 1.2rem; margin-top: 15px; }
         .hu-tao-quote span { color: var(--hu-tao-red); font-weight: bold; font-style: normal; }
 
         .social-grid {
@@ -115,36 +100,42 @@
             margin-top: 40px;
         }
 
-        .project-card {
-            display: flex;
-            align-items: center;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid var(--hu-tao-red);
+        /* Gists Menu Styles */
+        #gist-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
             border-radius: 10px;
-            margin-bottom: 25px;
-            overflow: hidden;
+            border: 1px solid var(--hu-tao-gold);
         }
 
+        .gist-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 5px;
+            text-decoration: none;
+            color: var(--hu-tao-text);
+            transition: background 0.3s;
+        }
+
+        .gist-item:hover { background: rgba(166, 43, 43, 0.3); }
+
+        .gist-name { font-weight: bold; color: var(--hu-tao-gold); }
+
+        /* Existing Styles */
+        .project-card { display: flex; align-items: center; background: rgba(0,0,0,0.3); border: 1px solid var(--hu-tao-red); border-radius: 10px; margin-bottom: 25px; overflow: hidden; }
         .project-image { flex: 1; min-width: 250px; height: 180px; background-color: #222; }
         .project-image img { width: 100%; height: 100%; object-fit: cover; }
         .project-info { flex: 2; padding: 20px; }
         .project-info h3 { margin: 0; color: var(--hu-tao-gold); }
 
-        .video-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%;
-            height: 0;
-            border: 2px solid var(--hu-tao-red);
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
+        .video-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .video-container { position: relative; padding-bottom: 56.25%; height: 0; border: 2px solid var(--hu-tao-red); border-radius: 5px; overflow: hidden; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
         footer { text-align: center; margin-top: 50px; opacity: 0.6; font-size: 0.8rem; }
@@ -161,12 +152,8 @@
             <div class="profile-pic">
                 <img src="https://i.ibb.co/SDqM2cDs/edca9f751f1cbbb6cda60a5905781444.jpg" alt="Hu Tao Profile">
             </div>
-
             <h1>TAO Official Site</h1>
-            <p class="hu-tao-quote">
-                "Oya? I don't know how you got here. But may I interest you with some <span>codes and stuff?</span>"
-            </p>
-            
+            <p class="hu-tao-quote">"Oya? I don't know how you got here. But may I interest you with some <span>codes and stuff?</span>"</p>
             <div class="social-grid">
                 <a href="https://www.youtube.com/@liuzhai036" target="_blank" class="btn-social youtube">YouTube</a>
                 <a href="https://www.tiktok.com/@seller.036" target="_blank" class="btn-social tiktok">TikTok</a>
@@ -178,9 +165,7 @@
         <section id="projects">
             <h2>Latest Projects</h2>
             <div class="project-card">
-                <div class="project-image">
-                    <img src="https://via.placeholder.com/300x180" alt="Project 1">
-                </div>
+                <div class="project-image"><img src="https://via.placeholder.com/300x180" alt="Project 1"></div>
                 <div class="project-info">
                     <h3>TAO C2 Plus Two!</h3>
                     <p>The TAO C2 Python Framework now made for C plus plus!</p>
@@ -188,24 +173,18 @@
             </div>
         </section>
 
+        <section id="gists-feed">
+            <h2>Recent Gists</h2>
+            <div id="gist-container">
+                <p>Loading gists...</p>
+            </div>
+        </section>
+
         <section id="tutorials">
             <h2>Tutorials</h2>
             <div class="video-grid">
-                <div class="video-item">
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/kTuG-TI91LA" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                </div>
-                <div class="video-item">
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/HLkiH8N3pg0" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                </div>
-                <div class="video-item">
-                    <div class="video-container">
-                        <iframe src="https://www.youtube.com/embed/dVb9C1MMwqo" frameborder="0" allowfullscreen></iframe>
-                    </div>
-                </div>
+                <div class="video-item"><div class="video-container"><iframe src="https://www.youtube.com/embed/kTuG-TI91LA" frameborder="0" allowfullscreen></iframe></div></div>
+                <div class="video-item"><div class="video-container"><iframe src="https://www.youtube.com/embed/HLkiH8N3pg0" frameborder="0" allowfullscreen></iframe></div></div>
             </div>
         </section>
 
@@ -213,5 +192,45 @@
             <p>&copy; 2026 TAO Official | "Ai-ya! Time to get to work."</p>
         </footer>
     </div>
+
+    <script>
+        // Logic to fetch Gists automatically
+        async function fetchGists() {
+            const username = 'tsaiuwu';
+            const container = document.getElementById('gist-container');
+            
+            try {
+                const response = await fetch(`https://api.github.com/users/${username}/gists`);
+                const gists = await response.json();
+                
+                container.innerHTML = ''; // Clear loading text
+
+                if (gists.length === 0) {
+                    container.innerHTML = '<p>No public gists found.</p>';
+                    return;
+                }
+
+                // Show only the 5 most recent gists
+                gists.slice(0, 5).forEach(gist => {
+                    const fileName = Object.keys(gist.files)[0];
+                    const description = gist.description || fileName;
+                    
+                    const gistElement = document.createElement('a');
+                    gistElement.href = gist.html_url;
+                    gistElement.target = '_blank';
+                    gistElement.className = 'gist-item';
+                    gistElement.innerHTML = `
+                        <span class="gist-name">${description}</span>
+                        <span style="font-size: 0.8rem; opacity: 0.7;">View Code →</span>
+                    `;
+                    container.appendChild(gistElement);
+                });
+            } catch (error) {
+                container.innerHTML = '<p>Failed to load gists. Check connection.</p>';
+            }
+        }
+
+        fetchGists();
+    </script>
 </body>
 </html>
