@@ -52,9 +52,13 @@
             margin-top: 15px;
         }
 
-        .hu-tao-quote span { color: var(--hu-tao-red); font-weight: bold; }
+        /* Bold and Colored highlight for the span */
+        .hu-tao-quote span { 
+            color: var(--hu-tao-red); 
+            font-weight: bold; 
+            font-style: normal; /* Optional: makes it stand out against italic quote */
+        }
 
-        /* Social Buttons */
         .social-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -91,7 +95,6 @@
             margin-top: 40px;
         }
 
-        /* Side-by-Side Project Layout */
         .project-card {
             display: flex;
             align-items: center;
@@ -125,7 +128,6 @@
 
         .project-info h3 { margin: 0; color: var(--hu-tao-gold); }
 
-        /* Tutorials Grid */
         .video-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -138,13 +140,13 @@
             height: 0;
             border: 2px solid var(--hu-tao-red);
             border-radius: 5px;
+            overflow: hidden;
         }
 
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
         footer { text-align: center; margin-top: 50px; opacity: 0.6; font-size: 0.8rem; }
 
-        /* Mobile Responsive */
         @media (max-width: 700px) {
             .project-card { flex-direction: column; }
             .project-image { width: 100%; }
@@ -161,10 +163,10 @@
             </p>
             
             <div class="social-grid">
-                <a href="https://www.youtube.com/@liuzhai036" class="btn-social youtube">YouTube</a>
-                <a href="https://www.tiktok.com/@seller.036" class="btn-social tiktok">TikTok</a>
-                <a href="https://github.com/tsaiuwu" class="btn-social github">GitHub</a>
-                <a href="https://gist.github.com/tsaiuwu" class="btn-social gists">GitHub Gists</a>
+                <a href="https://www.youtube.com/@liuzhai036" target="_blank" class="btn-social youtube">YouTube</a>
+                <a href="https://www.tiktok.com/@seller.036" target="_blank" class="btn-social tiktok">TikTok</a>
+                <a href="https://github.com/tsaiuwu" target="_blank" class="btn-social github">GitHub</a>
+                <a href="https://gist.github.com/tsaiuwu" target="_blank" class="btn-social gists">GitHub Gists</a>
             </div>
         </header>
 
@@ -197,17 +199,17 @@
             <div class="video-grid">
                 <div class="video-item">
                     <div class="video-container">
-                        <iframe src="https://www.youtube.com/watch?v=kTuG-TI91LA" frameborder="0" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/kTuG-TI91LA" frameborder="0" allowfullscreen></iframe>
                     </div>
                 </div>
                 <div class="video-item">
                     <div class="video-container">
-                        <iframe src="https://www.youtube.com/watch?v=HLkiH8N3pg0" frameborder="0" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/HLkiH8N3pg0" frameborder="0" allowfullscreen></iframe>
                     </div>
                 </div>
                 <div class="video-item">
                     <div class="video-container">
-                        <iframe src="https://www.youtube.com/watch?v=dVb9C1MMwqo" frameborder="0" allowfullscreen></iframe>
+                        <iframe src="https://www.youtube.com/embed/dVb9C1MMwqo" frameborder="0" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
