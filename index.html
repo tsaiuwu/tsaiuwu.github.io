@@ -2,275 +2,189 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Liu Zhai 留宅</title>
+    <title>TAO Official Site</title>
     <style>
         :root {
             --hu-tao-dark: #1c1c1c;
             --hu-tao-red: #a62b2b;
             --hu-tao-gold: #d4af37;
             --hu-tao-text: #f5e6d3;
-            --hu-tao-brown: rgba(61, 43, 31, 0.9); /* Made semi-transparent for wallpaper */
+            --hu-tao-brown: #3d2b1f;
+        }
+
+        /* Fade-in animation for the whole page */
+        @keyframes fadeInPage {
+            from { opacity: 0; background-color: #000; }
+            to { opacity: 1; background-color: var(--hu-tao-dark); }
         }
 
         body {
             font-family: 'Segoe UI', serif;
             line-height: 1.6;
             background-color: var(--hu-tao-dark);
-            /* Dynamic Background Settings */
-            background-attachment: fixed;
-            background-size: cover;
-            background-position: center;
+            background-image: linear-gradient(135deg, #1c1c1c 0%, #2d1f1f 100%);
             color: var(--hu-tao-text);
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
-            transition: background-image 1s ease-in-out;
-        }
-
-        /* The Ghost Companion Animation */
-        .hu-tao-ghost {
-            position: fixed;
-            width: 80px;
-            z-index: 1000;
-            pointer-events: none;
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5));
-            animation: floatGhost 4s ease-in-out infinite;
-            opacity: 0.8;
-        }
-
-        @keyframes floatGhost {
-            0%, 100% { transform: translate(0, 0) rotate(0deg); }
-            25% { transform: translate(15px, -20px) rotate(5deg); }
-            50% { transform: translate(-10px, -40px) rotate(-5deg); }
-            75% { transform: translate(-20px, -20px) rotate(3deg); }
+            animation: fadeInPage 1.5s ease-in-out;
+            transition: background 1s ease-in-out;
         }
 
         .wrapper {
             max-width: 900px;
-            background: var(--hu-tao-brown);
+            background: rgba(61, 43, 31, 0.95); /* Semi-transparent brown */
             padding: 40px;
             margin: 40px 20px;
             border-radius: 15px;
             border: 2px solid var(--hu-tao-gold);
             box-shadow: 0 0 25px rgba(166, 43, 43, 0.5);
-            backdrop-filter: blur(8px); /* Blurs wallpaper behind the site */
         }
 
-        header {
-            text-align: center;
-            border-bottom: 2px solid var(--hu-tao-red);
-            padding-bottom: 30px;
-            margin-bottom: 30px;
-        }
-
-        .profile-pic {
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 20px auto;
-            border-radius: 50%;
-            border: 3px solid var(--hu-tao-gold);
-            overflow: hidden;
-            box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
-            background-color: #000;
-            transition: transform 0.4s ease;
-        }
-
-        .profile-pic:hover { transform: scale(1.05) rotate(5deg); }
-        .profile-pic img { width: 100%; height: 100%; object-fit: cover; }
-
+        header { text-align: center; border-bottom: 2px solid var(--hu-tao-red); padding-bottom: 30px; margin-bottom: 30px; }
         h1 { color: var(--hu-tao-gold); font-size: 3rem; margin: 0; text-shadow: 2px 2px 4px #000; }
-
         .hu-tao-quote { font-style: italic; color: var(--hu-tao-text); font-size: 1.2rem; margin-top: 15px; }
-        .hu-tao-quote span { color: var(--hu-tao-red); font-weight: bold; font-style: normal; }
+        .hu-tao-quote span { color: var(--hu-tao-red); font-weight: bold; }
 
+        /* Social Buttons */
         .social-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 10px;
-            margin-top: 25px;
+            gap: 10px; margin-top: 25px;
         }
-
         .btn-social {
-            text-decoration: none;
-            padding: 10px;
-            text-align: center;
-            border-radius: 5px;
-            font-weight: bold;
-            color: white;
-            border: 1px solid var(--hu-tao-gold);
-            transition: all 0.3s ease;
+            text-decoration: none; padding: 10px; text-align: center; border-radius: 5px;
+            font-weight: bold; color: white; border: 1px solid var(--hu-tao-gold); transition: 0.3s;
         }
-
         .youtube { background-color: #c4302b; }
         .tiktok { background-color: #010101; }
         .github { background-color: #333; }
         .gists { background-color: #4078c0; }
+        .btn-social:hover { background-color: var(--hu-tao-gold); color: var(--hu-tao-dark); transform: translateY(-3px); }
 
-        .btn-social:hover {
-            background-color: var(--hu-tao-gold);
-            color: var(--hu-tao-dark);
-            transform: translateY(-3px);
+        /* Project Cards */
+        h2 { color: var(--hu-tao-gold); border-left: 5px solid var(--hu-tao-red); padding-left: 10px; margin-top: 40px; }
+        .project-card {
+            display: flex; align-items: center; background: rgba(0,0,0,0.3);
+            border: 1px solid var(--hu-tao-red); border-radius: 10px; margin-bottom: 25px; overflow: hidden;
         }
-
-        h2 { 
-            color: var(--hu-tao-gold); 
-            border-left: 5px solid var(--hu-tao-red); 
-            padding-left: 10px;
-            margin-top: 40px;
-        }
-
-        #gist-container {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 10px;
-            background: rgba(0,0,0,0.2);
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid var(--hu-tao-gold);
-        }
-
-        .gist-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px;
-            background: rgba(255,255,255,0.05);
-            border-radius: 5px;
-            text-decoration: none;
-            color: var(--hu-tao-text);
-            transition: background 0.3s;
-        }
-
-        .gist-item:hover { background: rgba(166, 43, 43, 0.3); }
-        .gist-name { font-weight: bold; color: var(--hu-tao-gold); }
-
-        .project-card { display: flex; align-items: center; background: rgba(0,0,0,0.3); border: 1px solid var(--hu-tao-red); border-radius: 10px; margin-bottom: 25px; overflow: hidden; }
-        .project-image { flex: 1; min-width: 250px; height: 180px; background-color: #222; }
+        .project-image { flex: 1; min-width: 200px; height: 150px; background: #222; }
         .project-image img { width: 100%; height: 100%; object-fit: cover; }
         .project-info { flex: 2; padding: 20px; }
-        .project-info h3 { margin: 0; color: var(--hu-tao-gold); }
 
-        .video-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; border: 2px solid var(--hu-tao-red); border-radius: 5px; overflow: hidden; }
-        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
+        /* HORIZONTAL SCROLL VIDEO SECTION */
+        .video-scroller-container {
+            position: relative;
+            overflow-x: auto;
+            display: flex;
+            gap: 20px;
+            padding: 20px 0;
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--hu-tao-red) transparent;
+        }
+
+        /* This hides the scrollbar for Chrome/Safari but keeps functionality */
+        .video-scroller-container::-webkit-scrollbar { height: 6px; }
+        .video-scroller-container::-webkit-scrollbar-thumb { background: var(--hu-tao-red); border-radius: 10px; }
+
+        .video-item {
+            min-width: calc(50% - 10px); /* Only shows 2 videos at a time */
+            transition: transform 0.4s ease-in-out, opacity 0.4s;
+            cursor: pointer;
+        }
+
+        /* SHRINK ANIMATION on scroll/hover */
+        .video-scroller-container:active .video-item,
+        .video-item:hover {
+            transform: scale(0.92); /* The shrink effect */
+            opacity: 0.8;
+        }
+
+        .video-wrapper {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            border: 2px solid var(--hu-tao-gold);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .video-wrapper iframe {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+        }
 
         footer { text-align: center; margin-top: 50px; opacity: 0.6; font-size: 0.8rem; }
-
-        @media (max-width: 700px) {
-            .project-card { flex-direction: column; }
-            .video-grid { grid-template-columns: 1fr; }
-            .hu-tao-ghost { width: 50px; }
-        }
     </style>
 </head>
 <body>
-    <img src="https://i.ibb.co/Vpgm8Vf/hu-tao-ghost.png" class="hu-tao-ghost" id="ghost" alt="Ghost">
-
     <div class="wrapper">
         <header>
-            <div class="profile-pic">
-                <img src="https://i.ibb.co/SDqM2cDs/edca9f751f1cbbb6cda60a5905781444.jpg" alt="Hu Tao Profile">
-            </div>
-            <h1>Liu Zhai 留宅</h1>
-            <p class="hu-tao-quote">"Oya? I don't know how you got here. But may I interest you with some <span>codes and stuff?</span>"</p>
+            <h1>TAO Official Site</h1>
+            <p class="hu-tao-quote">
+                "Oya? I don't know how you got here. But shall I interest you with some.... <span>&lt;place holder&gt;</span>?"
+            </p>
+            
             <div class="social-grid">
-                <a href="https://www.youtube.com/@liuzhai036" target="_blank" class="btn-social youtube">YouTube</a>
-                <a href="https://www.tiktok.com/@seller.036" target="_blank" class="btn-social tiktok">TikTok</a>
-                <a href="https://github.com/tsaiuwu" target="_blank" class="btn-social github">GitHub</a>
-                <a href="https://gist.github.com/tsaiuwu" target="_blank" class="btn-social gists">GitHub Gists</a>
+                <a href="https://youtube.com/@YOUR_CHANNEL" class="btn-social youtube">YouTube</a>
+                <a href="https://tiktok.com/@YOUR_USER" class="btn-social tiktok">TikTok</a>
+                <a href="https://github.com/YOUR_USER" class="btn-social github">GitHub</a>
+                <a href="https://gist.github.com/YOUR_USER" class="btn-social gists">GitHub Gists</a>
             </div>
         </header>
 
         <section id="projects">
             <h2>Latest Projects</h2>
             <div class="project-card">
-                <div class="project-image"><img src="https://via.placeholder.com/300x180" alt="Project 1"></div>
+                <div class="project-image"><img src="https://via.placeholder.com/300x180" alt="Project"></div>
                 <div class="project-info">
-                    <h3>TAO C2 Plus Two!</h3>
-                    <p>The TAO C2 Python Framework now made for C plus plus!</p>
+                    <h3>Project Name One</h3>
+                    <p>Description placeholder for your amazing work.</p>
                 </div>
             </div>
         </section>
 
-        <section id="gists-feed">
-            <h2>Recent Gists</h2>
-            <div id="gist-container">
-                <p>Loading gists...</p>
-            </div>
-        </section>
-
         <section id="tutorials">
-            <h2>Tutorials</h2>
-            <div class="video-grid">
-                <div class="video-item"><div class="video-container"><iframe src="https://www.youtube.com/embed/kTuG-TI91LA" frameborder="0" allowfullscreen></iframe></div></div>
-                <div class="video-item"><div class="video-container"><iframe src="https://www.youtube.com/embed/HLkiH8N3pg0" frameborder="0" allowfullscreen></iframe></div></div>
-            </div>
+            <h2>Tutorials on YT</h2>
+            <p style="font-size: 0.8rem; color: var(--hu-tao-gold);">← Swipe to see more videos →</p>
+            <div class="video-scroller-container">
+                <div class="video-item">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/2g3Q7Di0UNU" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="video-item">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/X6tFX40n4dk" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+                <div class="video-item">
+                    <div class="video-wrapper">
+                        <iframe src="https://www.youtube.com/embed/eJTDUooYrSs" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+                </div>
         </section>
 
         <footer>
-            <p>&copy; 2026 TAO Official | "Ai-ya! Time to get to work."</p>
+            <p>&copy; 2026 TAO Official | "Prepare for the journey... wherever it leads."</p>
         </footer>
     </div>
 
     <script>
-        // 1. Logic for Polling Background Wallpapers
-        function updateBackground() {
-            // Using Source.Unsplash to find Anime/Hu Tao style content
-            // Every refresh or cycle (set to 30 seconds) it updates
-            const keywords = "hu-tao,genshin-impact,anime-dark";
-            const randomNum = Math.floor(Math.random() * 1000);
-            document.body.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://source.unsplash.com/featured/1920x1080?${keywords}&sig=${randomNum}')`;
-        }
-
-        // 2. Logic for Ghost following cursor/scroll
-        const ghost = document.getElementById('ghost');
-        let mouseX = 100, mouseY = 100;
-
-        window.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
+        // Background Fade Effect on Load
+        window.addEventListener('load', () => {
+            document.body.style.opacity = "1";
         });
 
-        function animateGhost() {
-            const currentX = parseFloat(ghost.style.left) || 0;
-            const currentY = parseFloat(ghost.style.top) || 0;
-            
-            // Smoothly ease the ghost toward the mouse
-            ghost.style.left = currentX + (mouseX - currentX - 40) * 0.05 + "px";
-            ghost.style.top = currentY + (mouseY - currentY - 40) * 0.05 + "px";
-            
-            requestAnimationFrame(animateGhost);
-        }
-
-        // 3. GitHub Gists Fetcher
-        async function fetchGists() {
-            const username = 'tsaiuwu';
-            const container = document.getElementById('gist-container');
-            try {
-                const response = await fetch(`https://api.github.com/users/${username}/gists`);
-                const gists = await response.json();
-                container.innerHTML = '';
-                gists.slice(0, 5).forEach(gist => {
-                    const fileName = Object.keys(gist.files)[0];
-                    const description = gist.description || fileName;
-                    const gistElement = document.createElement('a');
-                    gistElement.href = gist.html_url;
-                    gistElement.target = '_blank';
-                    gistElement.className = 'gist-item';
-                    gistElement.innerHTML = `<span class="gist-name">${description}</span><span>View →</span>`;
-                    container.appendChild(gistElement);
-                });
-            } catch (e) { container.innerHTML = '<p>Error loading Gists.</p>'; }
-        }
-
-        // Initialize everything
-        updateBackground();
-        setInterval(updateBackground, 30000); // Change wallpaper every 30 seconds
-        animateGhost();
-        fetchGists();
+        // Script to simulate "polling" behavior for the shrink effect
+        const scroller = document.querySelector('.video-scroller-container');
+        scroller.addEventListener('scroll', () => {
+            // Optional: You can add logic here to trigger more animations
+            // but the CSS 'active' and 'hover' handles the requested shrink beautifully.
+        });
     </script>
 </body>
 </html>
