@@ -2,89 +2,144 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Personal Website</title>
+    <title>TAO Official Site</title>
     <style>
-        /* Simple, modern styling */
+        /* Hu Tao Inspired Color Palette */
+        :root {
+            --hu-tao-dark: #1c1c1c;    /* Deep Charcoal (Hat/Coat) */
+            --hu-tao-red: #a62b2b;     /* Blood Red (Accents/Vision) */
+            --hu-tao-gold: #d4af37;    /* Antique Gold (Emblems) */
+            --hu-tao-text: #f5e6d3;    /* Parchment White */
+            --hu-tao-brown: #3d2b1f;   /* Mahogany Brown */
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Segoe UI', serif;
             line-height: 1.6;
-            color: #333;
+            background-color: var(--hu-tao-dark);
+            background-image: linear-gradient(135deg, #1c1c1c 0%, #2d1f1f 100%);
+            color: var(--hu-tao-text);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        .wrapper {
             max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            background-color: #f4f7f6;
+            background: var(--hu-tao-brown);
+            padding: 40px;
+            margin: 40px 20px;
+            border-radius: 15px;
+            border: 2px solid var(--hu-tao-gold);
+            box-shadow: 0 0 20px rgba(166, 43, 43, 0.4);
         }
 
         header {
             text-align: center;
-            padding: 3rem 0;
-            background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--hu-tao-red);
+            padding-bottom: 30px;
+            margin-bottom: 30px;
         }
 
-        h1 { margin: 0; color: #2d3436; }
-        p.subtitle { color: #636e72; font-size: 1.1rem; }
-
-        section {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        h1 { 
+            color: var(--hu-tao-gold); 
+            font-size: 3rem; 
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px #000;
         }
 
-        .social-links a {
-            display: inline-block;
-            margin-right: 15px;
-            color: #0984e3;
-            text-decoration: none;
+        .description { 
+            color: var(--hu-tao-red); 
+            font-size: 1.3rem; 
             font-weight: bold;
+            letter-spacing: 1px;
+        }
+        
+        .social-section {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 25px;
         }
 
-        .social-links a:hover { text-decoration: underline; }
+        .btn-social {
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+            color: white;
+            border: 1px solid var(--hu-tao-gold);
+            transition: all 0.3s ease;
+        }
 
+        .youtube { background-color: #c4302b; }
+        .tiktok { background-color: #000000; }
+
+        .btn-social:hover {
+            background-color: var(--hu-tao-gold);
+            color: var(--hu-tao-dark);
+            transform: translateY(-3px);
+        }
+
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            border: 3px solid var(--hu-tao-red);
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        h2 { color: var(--hu-tao-gold); border-left: 5px solid var(--hu-tao-red); padding-left: 10px; }
+        
         footer {
             text-align: center;
-            font-size: 0.9rem;
-            color: #b2bec3;
-            margin-top: 3rem;
+            margin-top: 40px;
+            font-size: 0.8rem;
+            opacity: 0.7;
         }
     </style>
 </head>
 <body>
+    <div class="wrapper">
+        <header>
+            <h1>TAO Official Site</h1>
+            <p class="description">&lt;placeholders&gt;</p>
+            
+            <div class="social-section">
+                <a href="https://www.youtube.com/@YOUR_CHANNEL" class="btn-social youtube" target="_blank">YouTube</a>
+                <a href="https://www.tiktok.com/@YOUR_USERNAME" class="btn-social tiktok" target="_blank">TikTok</a>
+            </div>
+        </header>
 
-    <header>
-        <h1>Welcome to My Site</h1>
-        <p class="subtitle">Built with GitHub Pages</p>
-    </header>
+        <section id="latest-work">
+            <h2>Latest Video</h2>
+            <div class="video-container">
+                <iframe src="https://www.youtube.com/embed/VIDEO_ID" title="Latest Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+        </section>
 
-    <section id="about">
-        <h2>About Me</h2>
-        <p>Hello! I'm [Your Name]. This is my new website hosted on GitHub. I'm currently learning how to build and deploy web projects.</p>
-    </section>
+        <section id="about">
+            <h2>Butterfly's Charms</h2>
+            <p>Welcome to the digital corner of the 77th Director of the Wangsheng Funeral Parlor. Stay a while, but don't stay forever!</p>
+        </section>
 
-    <section id="projects">
-        <h2>My Projects</h2>
-        <ul>
-            <li><strong>Project One:</strong> A cool thing I built.</li>
-            <li><strong>Project Two:</strong> Another interesting experiment.</li>
-        </ul>
-    </section>
-
-    <section id="contact">
-        <h2>Get in Touch</h2>
-        <div class="social-links">
-            <a href="https://github.com/YOUR_USERNAME">GitHub</a>
-            <a href="mailto:your-email@example.com">Email Me</a>
-        </div>
-    </section>
-
-    <footer>
-        <p>&copy; 2026 My Website. All rights reserved.</p>
-    </footer>
-
+        <footer>
+            <p>&copy; 2026 TAO Official | "Silly-churl, billy-churl, silly-billy hilichurl..."</p>
+        </footer>
+    </div>
 </body>
 </html>
