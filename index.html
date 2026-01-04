@@ -130,7 +130,8 @@
 
         .gist-item:hover { background: rgba(166, 43, 43, 0.4); }
 
-        .project-card { display: flex; align-items: center; background: rgba(0,0,0,0.4); border: 1px solid var(--hu-tao-red); border-radius: 10px; margin-bottom: 25px; overflow: hidden; }
+        .project-card { display: flex; align-items: center; background: rgba(0,0,0,0.4); border: 1px solid var(--hu-tao-red); border-radius: 10px; margin-bottom: 25px; overflow: hidden; cursor: pointer; transition: 0.3s; }
+        .project-card:hover { transform: translateY(-3px); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); }
         .project-image { flex: 1; min-width: 250px; height: 180px; background-color: #222; }
         .project-image img { width: 100%; height: 100%; object-fit: cover; }
         .project-info { flex: 2; padding: 20px; }
@@ -150,6 +151,111 @@
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
         footer { text-align: center; margin-top: 50px; opacity: 0.7; font-size: 0.9rem; }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            position: relative;
+            background: var(--hu-tao-brown);
+            margin: 3% auto;
+            padding: 30px;
+            border: 2px solid var(--hu-tao-gold);
+            border-radius: 15px;
+            width: 80%;
+            max-width: 900px;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from { transform: translateY(-50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-content::-webkit-scrollbar { width: 10px; }
+        .modal-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); border-radius: 10px; }
+        .modal-content::-webkit-scrollbar-thumb { background: var(--hu-tao-red); border-radius: 10px; }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--hu-tao-gold);
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .close-btn:hover { color: var(--hu-tao-red); transform: rotate(90deg); }
+
+        .modal-content h3 {
+            color: var(--hu-tao-gold);
+            font-size: 2rem;
+            margin-bottom: 10px;
+            border-bottom: 2px solid var(--hu-tao-red);
+            padding-bottom: 10px;
+        }
+
+        .modal-content h4 {
+            color: var(--hu-tao-red);
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .modal-content ul {
+            list-style-position: inside;
+            line-height: 1.8;
+        }
+
+        .modal-content code {
+            background: rgba(0,0,0,0.5);
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: var(--hu-tao-gold);
+            font-family: 'Courier New', monospace;
+        }
+
+        .modal-content pre {
+            background: rgba(0,0,0,0.5);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border: 1px solid var(--hu-tao-red);
+        }
+
+        .download-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 12px 30px;
+            background: var(--hu-tao-red);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            border: 1px solid var(--hu-tao-gold);
+            transition: 0.3s;
+        }
+
+        .download-btn:hover {
+            background: var(--hu-tao-gold);
+            color: var(--hu-tao-dark);
+            transform: translateY(-2px);
+        }
 
         @media (max-width: 700px) {
             .project-card { flex-direction: column; }
@@ -180,17 +286,24 @@
                 Yahaha~! So you want to know more about me? Well, I'm a beginner software engineer who dabbles in the mystical arts of <span style="color: var(--hu-tao-gold); font-weight: bold;">Java, Python, and C++</span> (currently mastering the C++ realm, hehe!). 
             </p>
             <p style="font-size: 1.1rem; line-height: 1.8;">
-                Currently, I'm sharpening my skills in <span style="color: var(--hu-tao-gold); font-weight: bold;">cybersecurity red teaming</span>—you know, the art of thinking like a ghost to catch other ghosts. Spooky, right? 👻
+                Oh, and here's a fun twist that makes people do a double-take—I'm actually a <span style="color: var(--hu-tao-red); font-weight: bold;">Psychology graduate</span> who decided to dive into the world of Computer Science! Why, you ask? Because understanding human minds AND machine logic is twice the fun! Currently, I'm sharpening my skills in <span style="color: var(--hu-tao-gold); font-weight: bold;">cybersecurity red teaming</span>—you know, the art of thinking like a ghost to catch other ghosts. Spooky, right? 👻
             </p>
         </section>
 
         <section id="projects">
             <h2>Latest Projects</h2>
-            <div class="project-card">
+            <div class="project-card" onclick="openModal('cpp')">
                 <div class="project-image"><img src="https://via.placeholder.com/300x180/a62b2b/f5e6d3?text=TAO+C2" alt="Project 1"></div>
                 <div class="project-info">
                     <h3>TAO C2 Plus Two!</h3>
                     <p>The TAO C2 Python Framework now made for C plus plus!</p>
+                </div>
+            </div>
+            <div class="project-card" onclick="openModal('python')">
+                <div class="project-image"><img src="https://via.placeholder.com/300x180/d4af37/1c1c1c?text=TAO+Python" alt="Project 2"></div>
+                <div class="project-info">
+                    <h3>TAO C2 Python Framework</h3>
+                    <p>A modular windows-based Remote Control & Administration Tool written in Python and C++.</p>
                 </div>
             </div>
         </section>
@@ -212,6 +325,112 @@
         <footer>
             <p>&copy; 2026 TAO Official | "Ai-ya! Time to get to work."</p>
         </footer>
+    </div>
+
+    <!-- Modal Windows -->
+    <div id="cppModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('cpp')">&times;</span>
+            <h3>TAO-C2 PLUS TWO (V 1.6.2)</h3>
+            <p>TAO-C2 is a C++ version of the Windows TAO-C2 python framework designed for educational research into endpoint management, API-based command-and-control (C2) architectures, and process monitoring techniques.</p>
+            
+            <h4>Key Features</h4>
+            <ul>
+                <li><strong>Hybrid C2 Architecture:</strong> Demonstrates dual-mode communication using standard web APIs (JSONBin) or DNS Tunneling (dnslib) with fall-back mechanisms.</li>
+                <li><strong>System Integrity & Persistence:</strong> Done through automated Windows Task Scheduling (schtasks) and file attribute manipulation.</li>
+                <li><strong>Process Hooking:</strong> A C++ Stub Loader (ldr.cpp) and hook.dll (hook.cpp) to evade system monitoring tools.</li>
+            </ul>
+
+            <h4>Modules</h4>
+            <p>Currently, this version only offers core main modules <code>cvm.dll</code> and <code>prep.dll</code>. I am currently working on re-integrating the python modules.</p>
+            <ul>
+                <li>As per discussed before, <code>cvm.dll</code> is the Sandbox awareness module and <code>prep.dll</code> is environment preparation and obfuscation engine.</li>
+            </ul>
+
+            <h4>Setup and Compilation</h4>
+            <p><strong>1. Requirements</strong></p>
+            <ul>
+                <li><strong>Controller:</strong> Python 3.x with tkinter, requests, dnslib, and cryptography.</li>
+                <li><strong>Agent:</strong> MinGW64 compiler environment or Microsoft Visual Studio</li>
+            </ul>
+
+            <p><strong>2. Configuration</strong></p>
+            <ul>
+                <li>Configure your primary HTTP communication backend (JSONBin credentials) within the <code>config_key.json</code> file.</li>
+                <li>The Python controller (<code>remote_c.py</code>) provides an (TBA) tool interface for manual credential entry and agent management.</li>
+            </ul>
+
+            <p><strong>3. Compilation</strong></p>
+            <p><em>Using MinGW64:</em></p>
+            <ul>
+                <li>Place the source files in the compiler directory.</li>
+                <li>Run <code>Compile.bat</code> as Administrator (required for setting development-time security exclusions).</li>
+                <li>The script will compile the core agent (<code>htr.exe</code>), the modules, and the stub loader (<code>ldr.exe</code>).</li>
+            </ul>
+            <p><strong>Note:</strong> The script is configured to clean up source objects and compiler tools upon successful build to simulate a deployment-ready environment.</p>
+
+            <p><em>Using Microsoft VS:</em></p>
+            <ul>
+                <li>Additional dependencies: <code>ws2_32.lib;wininet.lib;crypt32.lib;advapi32.lib;shell32.lib;user32.lib;</code></li>
+                <li>Change Runtime Library to Multi-threaded (/MT)</li>
+                <li>Set SubSystem to Windows (/SUBSYSTEM:WINDOWS) or comment out the <code>void InitDebugConsole</code> and its associated functions.</li>
+                <li>Set Build Configuration to Release and x64</li>
+            </ul>
+
+            <h4>Disclaimer</h4>
+            <p>This project is intended strictly for <strong>educational and research purposes only</strong>. It is designed as a dual-use tool for security professionals and researchers to better understand and defend against vulnerabilities.</p>
+            <ul>
+                <li><strong>Legal Compliance:</strong> Users are responsible for complying with all applicable local and international laws.</li>
+                <li><strong>Unauthorized Access:</strong> Per Section 5 of GitHub's Acceptable Use Policies, this tool must not be used to gain unauthorized access to any service, device, or network, nor should it be used to support active malware campaigns.</li>
+                <li><strong>Responsibility:</strong> The author assumes no liability for any misuse of this software or for any damage caused by its application in a manner that violates GitHub's Terms of Service or any legal statutes.</li>
+            </ul>
+
+            <a href="#" class="download-btn">Download (Coming Soon)</a>
+        </div>
+    </div>
+
+    <div id="pythonModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('python')">&times;</span>
+            <h3>T.A.O-RAT Python Framework</h3>
+            <p>A modular windows-based Remote Control & Administration Tool written in Python and C++. It is used for educational research into endpoint management, API-based command-and-control (C2) architectures, and process monitoring.</p>
+
+            <h4>Key Features</h4>
+            <ul>
+                <li><strong>Remote Command Execution:</strong> Demonstrates reverse shell architecture via the <code>def cmd_(cmd)</code> function.</li>
+                <li><strong>System Integrity:</strong> Modules to test environment awareness (VM detection) and security configuration (Defender interaction).</li>
+                <li><strong>Persistence Modeling:</strong> Implementation of automated task scheduling for persistent administration.</li>
+                <li><strong>Process Hooking:</strong> A C++ Stub Loader (ldr.cpp) and hook.dll (hook.cpp) to see how User-Mode hooking can influence system monitoring tools like Task Manager.</li>
+            </ul>
+
+            <h4>Modules</h4>
+            <p>Modules are accessible via the "Tools" panel which includes:</p>
+            <ul>
+                <li><strong>Surveillance modules</strong> - Including screen capture and input logging for auditing user activity.</li>
+                <li><strong>File Exfiltration module</strong> - File exfiltration testing using the GoFile.io API.</li>
+                <li><strong>XMRIG module</strong> - Deployment of distributed computing tasks (XMRIG integration).</li>
+            </ul>
+
+            <h4>Setup</h4>
+            <ul>
+                <li>Install third-party python modules: <code>pip install requests pyautogui cryptography pynput psutil</code></li>
+                <li><strong>Configuration:</strong> Set up a JSONBin.io account and put your credentials in <code>config_key.json</code> (for the agent), and enter manually in the remote app.</li>
+                <li><strong>Compile:</strong> <code>ldr.cpp</code> and <code>hook.cpp</code> by running the <code>Compile.bat</code> file found in the Compile folder. Then place the compiled files (exe and dll) inside the modules folder.</li>
+                <li><strong>Compile 2:</strong> The <code>htr.py</code> to an executable via the <code>Compile.bat</code> file found in the payload folder. (You must have PyInstaller installed).</li>
+                <li><strong>Place:</strong> The modules folder inside the directory of the compiled htr.exe. You must have the <code>config_key.json</code> with your credentials there.</li>
+                <li><strong>Run:</strong> Run <code>htr.exe</code> and then open your <code>htr_remote</code> script to start.</li>
+            </ul>
+
+            <h4>Disclaimer</h4>
+            <p>This project is intended strictly for <strong>educational and research purposes only</strong>. It is designed as a dual-use tool for security professionals and researchers to better understand and defend against vulnerabilities.</p>
+            <ul>
+                <li><strong>Legal Compliance:</strong> Users are responsible for complying with all applicable local and international laws.</li>
+                <li><strong>Unauthorized Access:</strong> Per Section 5 of GitHub's Acceptable Use Policies, this tool must not be used to gain unauthorized access to any service, device, or network, nor should it be used to support active malware campaigns.</li>
+                <li><strong>Responsibility:</strong> The author assumes no liability for any misuse of this software or for any damage caused by its application in a manner that violates GitHub's Terms of Service or any legal statutes.</li>
+            </ul>
+
+            <a href="#" class="download-btn">Download (Coming Soon)</a>
+        </div>
     </div>
 
     <script>
