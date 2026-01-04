@@ -292,6 +292,15 @@
 
         <section id="projects">
             <h2>Latest Projects</h2>
+            
+            <div class="project-card" onclick="openModal('peloader')">
+                <div class="project-image"><img src="https://i.ibb.co/BH8b3wL9/dll.png" alt="Memory PE Loader"></div>
+                <div class="project-info">
+                    <h3>Memory PE Loader</h3>
+                    <p>A lightweight C++ library that manually maps and executes PE files directly from memory resources.</p>
+                </div>
+            </div>
+            
             <div class="project-card" onclick="openModal('cpp')">
                 <div class="project-image"><img src="https://i.ibb.co/8gcLqKnG/cplusplus.png" alt="TAO C2 Plus Two"></div>
                 <div class="project-info">
@@ -327,7 +336,87 @@
         </footer>
     </div>
 
-    <!-- Modal Windows -->
+    <div id="peloaderModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('peloader')">&times;</span>
+            <h3>Memory PE Loader</h3>
+            <p>A lightweight, dependency-free C++ library that manually maps and executes Portable Executable (PE) files directly from memory resources. This project demonstrates how the Windows operating system loads executables, handling low-level tasks such as memory allocation, import resolution, and relocation processing in user mode.</p>
+            
+            <h4>📖 Overview</h4>
+            <p>Standard Windows applications use <code>LoadLibrary</code> or <code>CreateProcess</code> to run code. These APIs rely on the file being present on the disk. This library emulates the behavior of the native Windows Loader (<code>ntdll</code> loader), allowing you to run an embedded EXE or DLL directly from a memory buffer without ever dropping a file to the disk.</p>
+            
+            <p><strong>This is useful for:</strong></p>
+            <ul>
+                <li><strong>Single-File Executables:</strong> Bundling dependencies or helper utilities inside a single binary.</li>
+                <li><strong>Security Research:</strong> Understanding PE file structures, the Import Address Table (IAT), and relocation mechanics.</li>
+                <li><strong>Plugin Systems:</strong> Loading encrypted or compressed plugins securely from memory.</li>
+            </ul>
+
+            <h4>⚙️ Features</h4>
+            <ul>
+                <li><strong>Zero-Disk Footprint:</strong> Loads the payload entirely from the host's resource section (<code>RT_RCDATA</code>).</li>
+                <li><strong>Full PE Support:</strong> Handles both x86 and x64 architectures.</li>
+                <li><strong>Relocation Processing:</strong> Correctly handles base relocations (including High/Low and Dir64).</li>
+                <li><strong>Import Resolution:</strong> Recursively loads dependencies and fills the IAT (Import Address Table).</li>
+                <li><strong>Exception Handling:</strong>
+                    <ul style="margin-left: 20px;">
+                        <li><strong>x64:</strong> Manually registers exception tables via <code>RtlAddFunctionTable</code> for SEH support.</li>
+                        <li><strong>x86:</strong> Installs a custom SEH frame.</li>
+                    </ul>
+                </li>
+                <li><strong>TLS Support:</strong> Executes Thread Local Storage callbacks (DLL_PROCESS_ATTACH/DETACH).</li>
+                <li><strong>Delay-Load Imports:</strong> Full support for delay-loaded DLL dependencies.</li>
+                <li><strong>Loader Lock:</strong> Implements thread-safe DLL loading to prevent race conditions.</li>
+                <li><strong>Section Protections:</strong> Properly sets memory permissions (RWX, RX, RW) based on PE section characteristics.</li>
+            </ul>
+
+            <h4>🚀 Usage</h4>
+            <p><strong>1. Preparing the Resource</strong></p>
+            <p>Add your target executable (payload) to your project resources:</p>
+            <ol>
+                <li>Open your Resource (.rc) file.</li>
+                <li>Add a generic <code>RCDATA</code> resource.</li>
+                <li>Set the Resource ID to <code>101</code> (or modify <code>LoadPEFromResource</code> in the code).</li>
+            </ol>
+
+            <p><strong>2. Compilation</strong></p>
+            <p>Compile with Visual Studio or MinGW with the following libraries:</p>
+            <pre><code>advapi32.lib kernel32.lib ntdll.lib</code></pre>
+
+            <p><strong>3. Integration</strong></p>
+            <p>The loader automatically executes when the host DLL is loaded:</p>
+            <pre><code>// The PE from resource ID 101 will be loaded and executed
+// Entry point is called automatically</code></pre>
+
+            <h4>🔒 Security Considerations</h4>
+            <p><strong>⚠️ DISCLAIMER:</strong> This software is provided for <strong>educational and research purposes only</strong>. It interacts with low-level system memory and may trigger antivirus heuristics due to the nature of manual mapping (a common and known malware technique).</p>
+            
+            <ul>
+                <li><strong>Use responsibly</strong> and only on systems you own or have explicit permission to test on.</li>
+                <li><strong>Legal Compliance:</strong> Users are responsible for complying with all applicable local and international laws.</li>
+                <li><strong>AV Detection:</strong> Memory loaders are flagged by security software as they bypass normal file-based scanning.</li>
+                <li><strong>Debugging:</strong> Enable the debug console to view detailed logging of the loading process.</li>
+            </ul>
+
+            <h4>📚 Technical Details</h4>
+            <p><strong>What the loader handles:</strong></p>
+            <ul>
+                <li>DOS/NT header validation</li>
+                <li>Section mapping with proper alignment</li>
+                <li>Base relocation (HIGHLOW, DIR64, ABSOLUTE)</li>
+                <li>Import descriptor resolution (by name and ordinal)</li>
+                <li>Delay-load import processing</li>
+                <li>Exception directory registration (x64 RUNTIME_FUNCTION tables)</li>
+                <li>SEH frame installation (x86)</li>
+                <li>TLS callback execution</li>
+                <li>Memory protection (PAGE_EXECUTE_READ, PAGE_READWRITE, etc.)</li>
+                <li>Thread-safe loader lock mechanism</li>
+            </ul>
+
+            <a href="https://drive.google.com/drive/folders/1iAJyHX_b07wdilLHP84YX8wfyiCaRW67?usp=sharing" target="_blank" class="download-btn">Download PE Loader</a>
+        </div>
+    </div>
+    
     <div id="cppModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('cpp')">&times;</span>
@@ -436,13 +525,27 @@
     <script>
         // Modal Functions
         function openModal(type) {
-            const modalId = type === 'cpp' ? 'cppModal' : 'pythonModal';
+            let modalId;
+            if (type === 'peloader') {
+                modalId = 'peloaderModal';
+            } else if (type === 'cpp') {
+                modalId = 'cppModal';
+            } else {
+                modalId = 'pythonModal';
+            }
             document.getElementById(modalId).style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
 
         function closeModal(type) {
-            const modalId = type === 'cpp' ? 'cppModal' : 'pythonModal';
+            let modalId;
+            if (type === 'peloader') {
+                modalId = 'peloaderModal';
+            } else if (type === 'cpp') {
+                modalId = 'cppModal';
+            } else {
+                modalId = 'pythonModal';
+            }
             document.getElementById(modalId).style.display = 'none';
             document.body.style.overflow = 'auto';
         }
@@ -461,6 +564,7 @@
             try {
                 const res = await fetch(`https://api.github.com/users/tsaiuwu/gists`);
                 const data = await res.json();
+                
                 container.innerHTML = '';
                 data.slice(0, 5).forEach(g => {
                     const name = Object.keys(g.files)[0];
