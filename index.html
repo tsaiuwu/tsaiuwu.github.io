@@ -44,16 +44,18 @@
         }
 
         .wrapper {
+            width: 100%;
             max-width: 900px;
             background: var(--hu-tao-brown);
-            padding: 40px;
-            margin: 40px 20px;
+            padding: 40px 20px;
+            margin: 40px 10px;
             border-radius: 15px;
             border: 2px solid var(--hu-tao-gold);
             box-shadow: 0 0 25px rgba(166, 43, 43, 0.5);
             backdrop-filter: blur(10px);
             position: relative;
             z-index: 10;
+            box-sizing: border-box;
         }
 
         header {
@@ -64,8 +66,8 @@
         }
 
         .profile-pic {
-            width: 150px;
-            height: 150px;
+            width: 120px;
+            height: 120px;
             margin: 0 auto 20px auto;
             border-radius: 50%;
             border: 3px solid var(--hu-tao-gold);
@@ -76,14 +78,14 @@
         
         .profile-pic img { width: 100%; height: 100%; object-fit: cover; }
 
-        h1 { color: var(--hu-tao-gold); font-size: 3.5rem; margin: 0; text-shadow: 2px 2px 4px #000; }
+        h1 { color: var(--hu-tao-gold); font-size: clamp(2rem, 8vw, 3.5rem); margin: 0; text-shadow: 2px 2px 4px #000; }
 
-        .hu-tao-quote { font-style: italic; color: var(--hu-tao-text); font-size: 1.2rem; margin-top: 15px; }
+        .hu-tao-quote { font-style: italic; color: var(--hu-tao-text); font-size: 1.1rem; margin-top: 15px; padding: 0 10px; }
         .hu-tao-quote span { color: var(--hu-tao-red); font-weight: bold; }
 
         .social-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
             gap: 10px;
             margin-top: 25px;
         }
@@ -97,6 +99,7 @@
             color: white;
             border: 1px solid var(--hu-tao-gold);
             transition: 0.3s;
+            font-size: 0.9rem;
         }
 
         .youtube { background-color: #c4302b; }
@@ -106,20 +109,20 @@
 
         .btn-social:hover { transform: translateY(-3px); filter: brightness(1.2); }
 
-        h2 { color: var(--hu-tao-gold); border-left: 5px solid var(--hu-tao-red); padding-left: 10px; margin-top: 40px; }
+        h2 { color: var(--hu-tao-gold); border-left: 5px solid var(--hu-tao-red); padding-left: 10px; margin-top: 40px; font-size: 1.5rem; }
 
         #gist-container {
             display: grid;
             gap: 10px;
             background: rgba(0,0,0,0.3);
-            padding: 20px;
+            padding: 15px;
             border-radius: 10px;
             border: 1px solid var(--hu-tao-gold);
         }
 
         .gist-item {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             padding: 12px;
             background: rgba(255,255,255,0.05);
             border-radius: 5px;
@@ -128,29 +131,48 @@
             transition: 0.2s;
         }
 
-        .gist-item:hover { background: rgba(166, 43, 43, 0.4); }
+        .gist-item span:last-child { font-size: 0.8rem; margin-top: 5px; color: var(--hu-tao-red); }
 
-        .project-card { display: flex; align-items: center; background: rgba(0,0,0,0.4); border: 1px solid var(--hu-tao-red); border-radius: 10px; margin-bottom: 25px; overflow: hidden; cursor: pointer; transition: 0.3s; }
-        .project-card:hover { transform: translateY(-3px); box-shadow: 0 5px 20px rgba(212, 175, 55, 0.4); }
-        .project-image { flex: 1; min-width: 250px; max-width: 250px; height: 180px; background-color: #222; display: flex; align-items: center; justify-content: center; padding: 20px; }
+        @media (min-width: 600px) {
+            .gist-item { flex-direction: row; justify-content: space-between; align-items: center; }
+            .gist-item span:last-child { margin-top: 0; }
+        }
+
+        .project-card { display: flex; flex-direction: column; background: rgba(0,0,0,0.4); border: 1px solid var(--hu-tao-red); border-radius: 10px; margin-bottom: 25px; overflow: hidden; cursor: pointer; transition: 0.3s; }
+        
+        @media (min-width: 768px) {
+            .project-card { flex-direction: row; align-items: center; }
+        }
+
+        .project-image { width: 100%; height: 180px; background-color: #222; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
+        
+        @media (min-width: 768px) {
+            .project-image { min-width: 250px; max-width: 250px; }
+        }
+
         .project-image img { max-width: 100%; max-height: 100%; object-fit: contain; }
         .project-info { flex: 2; padding: 20px; }
+        .project-info h3 { margin-top: 0; color: var(--hu-tao-gold); }
 
         .video-grid { 
             display: flex; 
             gap: 20px; 
             overflow-x: auto; 
-            padding-bottom: 10px; 
+            padding-bottom: 15px; 
             scroll-behavior: smooth; 
+            -webkit-overflow-scrolling: touch;
         }
         .video-grid::-webkit-scrollbar { height: 8px; }
         .video-grid::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); border-radius: 10px; }
         .video-grid::-webkit-scrollbar-thumb { background: var(--hu-tao-red); border-radius: 10px; }
-        .video-item { min-width: 400px; flex-shrink: 0; }
+        
+        .video-item { min-width: 280px; width: 80%; flex-shrink: 0; }
+        @media (min-width: 768px) { .video-item { min-width: 400px; } }
+
         .video-container { position: relative; padding-bottom: 56.25%; height: 0; border: 2px solid var(--hu-tao-red); border-radius: 5px; overflow: hidden; }
         .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
 
-        footer { text-align: center; margin-top: 50px; opacity: 0.7; font-size: 0.9rem; }
+        footer { text-align: center; margin-top: 50px; padding-bottom: 20px; opacity: 0.7; font-size: 0.8rem; }
 
         /* Modal Styles */
         .modal {
@@ -161,105 +183,50 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.8);
+            background-color: rgba(0,0,0,0.85);
             backdrop-filter: blur(5px);
-            animation: fadeIn 0.3s ease;
         }
 
         .modal-content {
             position: relative;
-            background: var(--hu-tao-brown);
-            margin: 3% auto;
-            padding: 30px;
+            background: #2a1d15;
+            margin: 5vh auto;
+            padding: 20px;
             border: 2px solid var(--hu-tao-gold);
             border-radius: 15px;
-            width: 80%;
-            max-width: 900px;
+            width: 90%;
+            max-width: 800px;
             max-height: 85vh;
             overflow-y: auto;
-            box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
-            animation: slideDown 0.3s ease;
+            box-shadow: 0 0 30px rgba(212, 175, 55, 0.4);
+            box-sizing: border-box;
         }
-
-        @keyframes slideDown {
-            from { transform: translateY(-50px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-
-        .modal-content::-webkit-scrollbar { width: 10px; }
-        .modal-content::-webkit-scrollbar-track { background: rgba(0,0,0,0.3); border-radius: 10px; }
-        .modal-content::-webkit-scrollbar-thumb { background: var(--hu-tao-red); border-radius: 10px; }
 
         .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 25px;
+            position: sticky;
+            top: 0;
+            float: right;
             font-size: 2rem;
             font-weight: bold;
             color: var(--hu-tao-gold);
             cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .close-btn:hover { color: var(--hu-tao-red); transform: rotate(90deg); }
-
-        .modal-content h3 {
-            color: var(--hu-tao-gold);
-            font-size: 2rem;
-            margin-bottom: 10px;
-            border-bottom: 2px solid var(--hu-tao-red);
-            padding-bottom: 10px;
-        }
-
-        .modal-content h4 {
-            color: var(--hu-tao-red);
-            margin-top: 20px;
-            margin-bottom: 10px;
-        }
-
-        .modal-content ul {
-            list-style-position: inside;
-            line-height: 1.8;
-        }
-
-        .modal-content code {
-            background: rgba(0,0,0,0.5);
-            padding: 2px 6px;
-            border-radius: 3px;
-            color: var(--hu-tao-gold);
-            font-family: 'Courier New', monospace;
-        }
-
-        .modal-content pre {
-            background: rgba(0,0,0,0.5);
-            padding: 15px;
-            border-radius: 5px;
-            overflow-x: auto;
-            border: 1px solid var(--hu-tao-red);
+            z-index: 1001;
+            background: #2a1d15;
+            padding: 0 10px;
+            border-radius: 50%;
         }
 
         .download-btn {
-            display: inline-block;
+            display: block;
+            text-align: center;
             margin-top: 20px;
-            padding: 12px 30px;
+            padding: 15px;
             background: var(--hu-tao-red);
             color: white;
             text-decoration: none;
             border-radius: 5px;
             font-weight: bold;
             border: 1px solid var(--hu-tao-gold);
-            transition: 0.3s;
-        }
-
-        .download-btn:hover {
-            background: var(--hu-tao-gold);
-            color: var(--hu-tao-dark);
-            transform: translateY(-2px);
-        }
-
-        @media (max-width: 700px) {
-            .project-card { flex-direction: column; }
-            .video-item { min-width: 300px; }
         }
     </style>
 </head>
@@ -276,50 +243,34 @@
                 <a href="https://www.youtube.com/@liuzhai036" target="_blank" class="btn-social youtube">YouTube</a>
                 <a href="https://www.tiktok.com/@seller.036" target="_blank" class="btn-social tiktok">TikTok</a>
                 <a href="https://github.com/tsaiuwu" target="_blank" class="btn-social github">GitHub</a>
-                <a href="https://gist.github.com/tsaiuwu" target="_blank" class="btn-social gists">GitHub Gists</a>
+                <a href="https://gist.github.com/tsaiuwu" target="_blank" class="btn-social gists">Gists</a>
             </div>
         </header>
 
         <section id="about">
             <h2>About This Curious Soul~</h2>
-            <p style="font-size: 1.1rem; line-height: 1.8;">
-                Yahaha~! So you want to know more about me? Well, I'm a beginner software engineer who dabbles in the mystical arts of <span style="color: var(--hu-tao-gold); font-weight: bold;">Java, Python, and C++</span> (currently mastering the C++ realm, hehe!). 
-            </p>
-            <p style="font-size: 1.1rem; line-height: 1.8;">
-                Currently, I'm sharpening my skills in <span style="color: var(--hu-tao-gold); font-weight: bold;">cybersecurity red teaming</span>—you know, the art of thinking like a ghost to catch other ghosts. Spooky, right? 👻
-            </p>
+            <p>Yahaha~! I'm a beginner software engineer mastering <span style="color: var(--hu-tao-gold); font-weight: bold;">Java, Python, and C++</span>.</p>
+            <p>Focusing on <span style="color: var(--hu-tao-gold); font-weight: bold;">cybersecurity red teaming</span>—thinking like a ghost to catch ghosts! 👻</p>
         </section>
 
         <section id="projects">
             <h2>Latest Projects</h2>
             
             <div class="project-card" onclick="openModal('peloader')">
-                <div class="project-image"><img src="https://i.ibb.co/BH8b3wL9/dll.png" alt="DLL Hollowing with EDR Evasion"></div>
+                <div class="project-image"><img src="https://i.ibb.co/BH8b3wL9/dll.png" alt="DLL Hollowing"></div>
                 <div class="project-info">
-                    <h3>DLL Hollowing with EDR Evasion</h3>
-                    <p>Proof-of-concept project demonstrating bypasses for ETW, AMSI, and EDR hooks using unhooking and module stomping.</p>
+                    <h3>DLL Hollowing & EDR Evasion</h3>
+                    <p>Bypassing ETW, AMSI, and EDR hooks using unhooking and module stomping.</p>
                 </div>
             </div>
             
             <div class="project-card" onclick="openModal('cpp')">
-                <div class="project-image"><img src="https://i.ibb.co/8gcLqKnG/cplusplus.png" alt="TAO C2 Plus Two"></div>
+                <div class="project-image"><img src="https://i.ibb.co/8gcLqKnG/cplusplus.png" alt="TAO C2 C++"></div>
                 <div class="project-info">
                     <h3>TAO C2 Plus Two!</h3>
-                    <p>The TAO C2 Python Framework now made for C plus plus!</p>
+                    <p>C++ implementation of the TAO C2 framework.</p>
                 </div>
             </div>
-            <div class="project-card" onclick="openModal('python')">
-                <div class="project-image"><img src="https://i.ibb.co/zWLQLpjQ/python.png" alt="TAO Python Framework"></div>
-                <div class="project-info">
-                    <h3>TAO C2 Python Framework</h3>
-                    <p>A modular windows-based Remote Control & Administration Tool written in Python and C++.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="gists-feed">
-            <h2>Recent Gists</h2>
-            <div id="gist-container"><p>Fetching live code snippets...</p></div>
         </section>
 
         <section id="tutorials">
@@ -327,7 +278,6 @@
             <div class="video-grid">
                 <div class="video-item"><div class="video-container"><iframe src="https://www.youtube.com/embed/kTuG-TI91LA" frameborder="0" allowfullscreen></iframe></div></div>
                 <div class="video-item"><div class="video-container"><iframe src="https://www.youtube.com/embed/HLkiH8N3pg0" frameborder="0" allowfullscreen></iframe></div></div>
-                <div class="video-item"><div class="video-container"><iframe src="https://www.youtube.com/embed/dVb9C1MMwqo" frameborder="0" allowfullscreen></iframe></div></div>
             </div>
         </section>
 
@@ -340,225 +290,39 @@
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('peloader')">&times;</span>
             <h3>DLL Hollowing with EDR Evasion</h3>
-            
             <h4>Disclaimer</h4>
-            <p>This repository contains proof-of-concept code for studying advanced malware evasion techniques on Windows. It is intended solely for educational and research purposes in controlled environments. Do not use this code for unauthorized activity. Misuse may violate laws and cause harm.</p>
-            
-            <h4>📖 Overview</h4>
-            <p>This project demonstrates how attackers attempt to bypass modern Windows defenses such as:</p>
-            <ul>
-                <li>ETW (Event Tracing for Windows) telemetry</li>
-                <li>AMSI (Antimalware Scan Interface) scanning</li>
-                <li>EDR hooks in ntdll.dll and kernel32.dll</li>
-            </ul>
-            <p>It implements:</p>
-            <ul>
-                <li>ETW patching (EtwEventWrite stubbed out)</li>
-                <li>AMSI patching (AmsiScanBuffer forced to return benign results)</li>
-                <li>Full-spectrum unhooking of system DLLs by restoring clean .text sections</li>
-                <li>Module stomping: loading a payload from resources and overwriting a benign DLL (winmm.dll) in memory</li>
-                <li>Thread suspension/resumption to safely patch memory</li>
-            </ul>
-
-            <h4>🔬 Research Goals</h4>
-            <ul>
-                <li>Show how attackers neutralize telemetry and scanning.</li>
-                <li>Provide defenders with insight into how unhooking and module stomping work.</li>
-                <li>Help blue teams build detections and mitigations against these techniques.</li>
-            </ul>
-
-            <h4>🛡️ Defensive Takeaways</h4>
-            <ul>
-                <li>Monitor for unexpected memory patches in ntdll.dll and kernel32.dll.</li>
-                <li>Detect suspicious calls to VirtualProtect/WriteProcessMemory targeting security functions.</li>
-                <li>Watch for module stomping behavior (legitimate DLLs overwritten in memory).</li>
-                <li>AMSI bypasses often rely on short instruction patches—signature detection is possible.</li>
-            </ul>
-
-            <h4>⚙️ Usage</h4>
-            <p>Do not run this on production systems. For research:</p>
-            <ol>
-                <li>Compile as a DLL.</li>
-                <li>Inject into a test process in a sandboxed lab environment.</li>
-                <li>Observe how ETW/AMSI events disappear and how payload execution occurs.</li>
-            </ol>
-
-            <h4>📚 References</h4>
-            <ul>
-                <li>MITRE ATT&CK: Defense Evasion</li>
-                <li>AMSI bypass research papers</li>
-                <li>ETW patching techniques in malware analysis blogs</li>
-            </ul>
-
-            <p>Not for malicious use.</p>
-
-            <a href="https://drive.google.com/drive/folders/11nLpXeo5Txl5d3sX7x8Cca6YeRBZyVtb?usp=sharing" target="_blank" class="download-btn">Download DLL Hollowing Project</a>
-        </div>
-    </div>
-    
-    <div id="cppModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('cpp')">&times;</span>
-            <h3>TAO-C2 PLUS TWO (V 1.6.2)</h3>
-            <p>TAO-C2 is a C++ version of the Windows TAO-C2 python framework designed for educational research into endpoint management, API-based command-and-control (C2) architectures, and process monitoring techniques.</p>
-            
-            <h4>Key Features</h4>
-            <ul>
-                <li><strong>Hybrid C2 Architecture:</strong> Demonstrates dual-mode communication using standard web APIs (JSONBin) or DNS Tunneling (dnslib) with fall-back mechanisms.</li>
-                <li><strong>System Integrity & Persistence:</strong> Done through automated Windows Task Scheduling (schtasks) and file attribute manipulation.</li>
-                <li><strong>Process Hooking:</strong> A C++ Stub Loader (ldr.cpp) and hook.dll (hook.cpp) to evade system monitoring tools.</li>
-            </ul>
-
-            <h4>Modules</h4>
-            <p>Currently, this version only offers core main modules <code>cvm.dll</code> and <code>prep.dll</code>. I am currently working on re-integrating the python modules.</p>
-            <ul>
-                <li>As per discussed before, <code>cvm.dll</code> is the Sandbox awareness module and <code>prep.dll</code> is environment preparation and obfuscation engine.</li>
-            </ul>
-
-            <h4>Setup and Compilation</h4>
-            <p><strong>1. Requirements</strong></p>
-            <ul>
-                <li><strong>Controller:</strong> Python 3.x with tkinter, requests, dnslib, and cryptography.</li>
-                <li><strong>Agent:</strong> MinGW64 compiler environment or Microsoft Visual Studio</li>
-            </ul>
-
-            <p><strong>2. Configuration</strong></p>
-            <ul>
-                <li>Configure your primary HTTP communication backend (JSONBin credentials) within the <code>config_key.json</code> file.</li>
-                <li>The Python controller (<code>remote_c.py</code>) provides an (TBA) tool interface for manual credential entry and agent management.</li>
-            </ul>
-
-            <p><strong>3. Compilation</strong></p>
-            <p><em>Using MinGW64:</em></p>
-            <ul>
-                <li>Place the source files in the compiler directory.</li>
-                <li>Run <code>Compile.bat</code> as Administrator (required for setting development-time security exclusions).</li>
-                <li>The script will compile the core agent (<code>htr.exe</code>), the modules, and the stub loader (<code>ldr.exe</code>).</li>
-            </ul>
-            <p><strong>Note:</strong> The script is configured to clean up source objects and compiler tools upon successful build to simulate a deployment-ready environment.</p>
-
-            <p><em>Using Microsoft VS:</em></p>
-            <ul>
-                <li>Additional dependencies: <code>ws2_32.lib;wininet.lib;crypt32.lib;advapi32.lib;shell32.lib;user32.lib;</code></li>
-                <li>Change Runtime Library to Multi-threaded (/MT)</li>
-                <li>Set SubSystem to Windows (/SUBSYSTEM:WINDOWS) or comment out the <code>void InitDebugConsole</code> and its associated functions.</li>
-                <li>Set Build Configuration to Release and x64</li>
-            </ul>
-
-            <h4>Disclaimer</h4>
-            <p>This project is intended strictly for <strong>educational and research purposes only</strong>. It is designed as a dual-use tool for security professionals and researchers to better understand and defend against vulnerabilities.</p>
-            <ul>
-                <li><strong>Legal Compliance:</strong> Users are responsible for complying with all applicable local and international laws.</li>
-                <li><strong>Unauthorized Access:</strong> Per Section 5 of GitHub's Acceptable Use Policies, this tool must not be used to gain unauthorized access to any service, device, or network, nor should it be used to support active malware campaigns.</li>
-                <li><strong>Responsibility:</strong> The author assumes no liability for any misuse of this software or for any damage caused by its application in a manner that violates GitHub's Terms of Service or any legal statutes.</li>
-            </ul>
-
-            <a href="https://drive.google.com/drive/folders/1NiLiue2wF6ORxdI8xYcH3nFOPRk7Z9X8?usp=sharing" target="_blank" class="download-btn">Download v1.6.2</a>
-        </div>
-    </div>
-
-    <div id="pythonModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('python')">&times;</span>
-            <h3>T.A.O-RAT Python Framework</h3>
-            <p>A modular windows-based Remote Control & Administration Tool written in Python and C++. It is used for educational research into endpoint management, API-based command-and-control (C2) architectures, and process monitoring.</p>
-
-            <h4>Key Features</h4>
-            <ul>
-                <li><strong>Remote Command Execution:</strong> Demonstrates reverse shell architecture via the <code>def cmd_(cmd)</code> function.</li>
-                <li><strong>System Integrity:</strong> Modules to test environment awareness (VM detection) and security configuration (Defender interaction).</li>
-                <li><strong>Persistence Modeling:</strong> Implementation of automated task scheduling for persistent administration.</li>
-                <li><strong>Process Hooking:</strong> A C++ Stub Loader (ldr.cpp) and hook.dll (hook.cpp) to see how User-Mode hooking can influence system monitoring tools like Task Manager.</li>
-            </ul>
-
-            <h4>Modules</h4>
-            <p>Modules are accessible via the "Tools" panel which includes:</p>
-            <ul>
-                <li><strong>Surveillance modules</strong> - Including screen capture and input logging for auditing user activity.</li>
-                <li><strong>File Exfiltration module</strong> - File exfiltration testing using the GoFile.io API.</li>
-                <li><strong>XMRIG module</strong> - Deployment of distributed computing tasks (XMRIG integration).</li>
-            </ul>
-
-            <h4>Setup</h4>
-            <ul>
-                <li>Install third-party python modules: <code>pip install requests pyautogui cryptography pynput psutil</code></li>
-                <li><strong>Configuration:</strong> Set up a JSONBin.io account and put your credentials in <code>config_key.json</code> (for the agent), and enter manually in the remote app.</li>
-                <li><strong>Compile:</strong> <code>ldr.cpp</code> and <code>hook.cpp</code> by running the <code>Compile.bat</code> file found in the Compile folder. Then place the compiled files (exe and dll) inside the modules folder.</li>
-                <li><strong>Compile 2:</strong> The <code>htr.py</code> to an executable via the <code>Compile.bat</code> file found in the payload folder. (You must have PyInstaller installed).</li>
-                <li><strong>Place:</strong> The modules folder inside the directory of the compiled htr.exe. You must have the <code>config_key.json</code> with your credentials there.</li>
-                <li><strong>Run:</strong> Run <code>htr.exe</code> and then open your <code>htr_remote</code> script to start.</li>
-            </ul>
-
-            <h4>Disclaimer</h4>
-            <p>This project is intended strictly for <strong>educational and research purposes only</strong>. It is designed as a dual-use tool for security professionals and researchers to better understand and defend against vulnerabilities.</p>
-            <ul>
-                <li><strong>Legal Compliance:</strong> Users are responsible for complying with all applicable local and international laws.</li>
-                <li><strong>Unauthorized Access:</strong> Per Section 5 of GitHub's Acceptable Use Policies, this tool must not be used to gain unauthorized access to any service, device, or network, nor should it be used to support active malware campaigns.</li>
-                <li><strong>Responsibility:</strong> The author assumes no liability for any misuse of this software or for any damage caused by its application in a manner that violates GitHub's Terms of Service or any legal statutes.</li>
-            </ul>
-
-            <a href="https://drive.google.com/drive/folders/17L4GdtwzdHZn9xp444KQjxcJ4EESxGMV?usp=sharing" target="_blank" class="download-btn">Download v1.6</a>
+            <p>Educational and research purposes only. Do not use for unauthorized activity.</p>
+            <h4>Overview</h4>
+            <p>Demonstrates bypasses for ETW telemetry, AMSI scanning, and EDR hooks.</p>
+            <a href="https://drive.google.com/drive/folders/11nLpXeo5Txl5d3sX7x8Cca6YeRBZyVtb?usp=sharing" target="_blank" class="download-btn">Download Project</a>
         </div>
     </div>
 
     <script>
-        // Modal Functions
         function openModal(type) {
-            let modalId;
-            if (type === 'peloader') {
-                modalId = 'peloaderModal';
-            } else if (type === 'cpp') {
-                modalId = 'cppModal';
-            } else {
-                modalId = 'pythonModal';
+            const modalId = type === 'peloader' ? 'peloaderModal' : (type === 'cpp' ? 'cppModal' : 'pythonModal');
+            const modal = document.getElementById(modalId);
+            if(modal) {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
             }
-            document.getElementById(modalId).style.display = 'block';
-            document.body.style.overflow = 'hidden';
         }
 
         function closeModal(type) {
-            let modalId;
-            if (type === 'peloader') {
-                modalId = 'peloaderModal';
-            } else if (type === 'cpp') {
-                modalId = 'cppModal';
-            } else {
-                modalId = 'pythonModal';
+            const modalId = type === 'peloader' ? 'peloaderModal' : (type === 'cpp' ? 'cppModal' : 'pythonModal');
+            const modal = document.getElementById(modalId);
+            if(modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = 'auto';
             }
-            document.getElementById(modalId).style.display = 'none';
-            document.body.style.overflow = 'auto';
         }
 
-        // Close modal when clicking outside
         window.onclick = function(event) {
             if (event.target.classList.contains('modal')) {
                 event.target.style.display = 'none';
                 document.body.style.overflow = 'auto';
             }
         }
-
-        // GITHUB GISTS POLLING
-        async function fetchGists() {
-            const container = document.getElementById('gist-container');
-            try {
-                const res = await fetch(`https://api.github.com/users/tsaiuwu/gists`);
-                const data = await res.json();
-                
-                container.innerHTML = '';
-                data.slice(0, 5).forEach(g => {
-                    const name = Object.keys(g.files)[0];
-                    container.innerHTML += `
-                        <a href="${g.html_url}" target="_blank" class="gist-item">
-                            <span style="color:var(--hu-tao-gold); font-weight:bold;">${g.description || name}</span>
-                            <span>View Code →</span>
-                        </a>`;
-                });
-            } catch (e) { container.innerHTML = '<p>Gists currently unavailable.</p>'; }
-        }
-
-        fetchGists();
-        
-        console.log('Scripts loaded successfully');
     </script>
 </body>
 </html>
