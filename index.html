@@ -326,13 +326,39 @@
             <p style="font-size: 1rem; line-height: 1.6;">
                 Currently, I'm sharpening my skills in <span style="color: var(--hu-tao-gold); font-weight: bold;">cybersecurity red teaming</span>—you know, the art of thinking like a ghost to catch other ghosts. Spooky, right? 👻
             </p>
-            <p style="font-size: 1rem; line-height: 1.6; margin-bottom: 5px;">
-                Also my mom kinda homeless so, XMR donations are appreciated:
-            </p>
-            <p style="font-size: 0.75rem; line-height: 1.4; color: #888; word-break: break-all; background: rgba(0,0,0,0.05); padding: 8px; border-radius: 4px;">
-                85ZbgoYYu8BD6p13sURZqj3Pym6z2sb5iBFUbKDaPcaj5oFXfNB8YJKYHRBVxEW5BmYMpAz2HytyiQ7Nw9cT5ovV9wBqVnn
-            </p>
+            
+            <div style="margin-top: 20px; display: flex; align-items: flex-start; gap: 15px; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; border: 1px solid rgba(255, 215, 0, 0.1);">
+                <div style="flex-shrink: 0;">
+                    <img src="YOUR_QR_CODE_URL_HERE" alt="XMR QR" style="width: 80px; height: 80px; background: white; padding: 5px; border-radius: 4px; display: block;">
+                </div>
+        
+                <div style="flex-grow: 1;">
+                    <p style="font-size: 0.95rem; line-height: 1.4; margin-bottom: 8px; color: #ccc;">
+                        Support my journey (and my mom!):
+                    </p>
+                    <div onclick="copyAddress()" style="cursor: pointer; position: relative;" title="Click to copy XMR Address">
+                        <p id="xmr-address" style="font-size: 0.7rem; line-height: 1.3; color: var(--hu-tao-gold); word-break: break-all; font-family: monospace; background: rgba(255,255,255,0.05); padding: 8px; border-radius: 4px; margin: 0; border: 1px dashed rgba(255,215,0,0.2);">
+                            85ZbgoYYu8BD6p13sURZqj3Pym6z2sb5iBFUbKDaPcaj5oFXfNB8YJKYHRBVxEW5BmYMpAz2HytyiQ7Nw9cT5ovV9wBqVnn
+                        </p>
+                        <span id="copy-toast" style="display: none; position: absolute; top: -25px; right: 0; background: var(--hu-tao-gold); color: #000; padding: 2px 6px; border-radius: 4px; font-size: 0.65rem; font-weight: bold;">
+                            Copied!
+                        </span>
+                    </div>
+                </div>
+            </div>
         </section>
+        
+        <script>
+        function copyAddress() {
+            const addressText = document.getElementById('xmr-address').innerText;
+            const toast = document.getElementById('copy-toast');
+            
+            navigator.clipboard.writeText(addressText).then(() => {
+                toast.style.display = 'block';
+                setTimeout(() => { toast.style.display = 'none'; }, 2000);
+            });
+        }
+        </script>
 
         <section id="projects">
             <h2>Latest Projects</h2>
