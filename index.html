@@ -294,10 +294,10 @@
             <h2>Latest Projects</h2>
             
             <div class="project-card" onclick="openModal('peloader')">
-                <div class="project-image"><img src="https://i.ibb.co/BH8b3wL9/dll.png" alt="Memory PE Loader"></div>
+                <div class="project-image"><img src="https://i.ibb.co/BH8b3wL9/dll.png" alt="DLL Hollowing with EDR Evasion"></div>
                 <div class="project-info">
-                    <h3>Memory PE Loader</h3>
-                    <p>A lightweight C++ library that manually maps and executes PE files directly from memory resources.</p>
+                    <h3>DLL Hollowing with EDR Evasion</h3>
+                    <p>Proof-of-concept project demonstrating bypasses for ETW, AMSI, and EDR hooks using unhooking and module stomping.</p>
                 </div>
             </div>
             
@@ -339,81 +339,60 @@
     <div id="peloaderModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('peloader')">&times;</span>
-            <h3>Memory PE Loader</h3>
-            <p>A lightweight, dependency-free C++ library that manually maps and executes Portable Executable (PE) files directly from memory resources. This project demonstrates how the Windows operating system loads executables, handling low-level tasks such as memory allocation, import resolution, and relocation processing in user mode.</p>
+            <h3>DLL Hollowing with EDR Evasion</h3>
+            
+            <h4>Disclaimer</h4>
+            <p>This repository contains proof-of-concept code for studying advanced malware evasion techniques on Windows. It is intended solely for educational and research purposes in controlled environments. Do not use this code for unauthorized activity. Misuse may violate laws and cause harm.</p>
             
             <h4>📖 Overview</h4>
-            <p>Standard Windows applications use <code>LoadLibrary</code> or <code>CreateProcess</code> to run code. These APIs rely on the file being present on the disk. This library emulates the behavior of the native Windows Loader (<code>ntdll</code> loader), allowing you to run an embedded EXE or DLL directly from a memory buffer without ever dropping a file to the disk.</p>
-            
-            <p><strong>This is useful for:</strong></p>
+            <p>This project demonstrates how attackers attempt to bypass modern Windows defenses such as:</p>
             <ul>
-                <li><strong>Single-File Executables:</strong> Bundling dependencies or helper utilities inside a single binary.</li>
-                <li><strong>Security Research:</strong> Understanding PE file structures, the Import Address Table (IAT), and relocation mechanics.</li>
-                <li><strong>Plugin Systems:</strong> Loading encrypted or compressed plugins securely from memory.</li>
+                <li>ETW (Event Tracing for Windows) telemetry</li>
+                <li>AMSI (Antimalware Scan Interface) scanning</li>
+                <li>EDR hooks in ntdll.dll and kernel32.dll</li>
+            </ul>
+            <p>It implements:</p>
+            <ul>
+                <li>ETW patching (EtwEventWrite stubbed out)</li>
+                <li>AMSI patching (AmsiScanBuffer forced to return benign results)</li>
+                <li>Full-spectrum unhooking of system DLLs by restoring clean .text sections</li>
+                <li>Module stomping: loading a payload from resources and overwriting a benign DLL (winmm.dll) in memory</li>
+                <li>Thread suspension/resumption to safely patch memory</li>
             </ul>
 
-            <h4>⚙️ Features</h4>
+            <h4>🔬 Research Goals</h4>
             <ul>
-                <li><strong>Zero-Disk Footprint:</strong> Loads the payload entirely from the host's resource section (<code>RT_RCDATA</code>).</li>
-                <li><strong>Full PE Support:</strong> Handles both x86 and x64 architectures.</li>
-                <li><strong>Relocation Processing:</strong> Correctly handles base relocations (including High/Low and Dir64).</li>
-                <li><strong>Import Resolution:</strong> Recursively loads dependencies and fills the IAT (Import Address Table).</li>
-                <li><strong>Exception Handling:</strong>
-                    <ul style="margin-left: 20px;">
-                        <li><strong>x64:</strong> Manually registers exception tables via <code>RtlAddFunctionTable</code> for SEH support.</li>
-                        <li><strong>x86:</strong> Installs a custom SEH frame.</li>
-                    </ul>
-                </li>
-                <li><strong>TLS Support:</strong> Executes Thread Local Storage callbacks (DLL_PROCESS_ATTACH/DETACH).</li>
-                <li><strong>Delay-Load Imports:</strong> Full support for delay-loaded DLL dependencies.</li>
-                <li><strong>Loader Lock:</strong> Implements thread-safe DLL loading to prevent race conditions.</li>
-                <li><strong>Section Protections:</strong> Properly sets memory permissions (RWX, RX, RW) based on PE section characteristics.</li>
+                <li>Show how attackers neutralize telemetry and scanning.</li>
+                <li>Provide defenders with insight into how unhooking and module stomping work.</li>
+                <li>Help blue teams build detections and mitigations against these techniques.</li>
             </ul>
 
-            <h4>🚀 Usage</h4>
-            <p><strong>1. Preparing the Resource</strong></p>
-            <p>Add your target executable (payload) to your project resources:</p>
+            <h4>🛡️ Defensive Takeaways</h4>
+            <ul>
+                <li>Monitor for unexpected memory patches in ntdll.dll and kernel32.dll.</li>
+                <li>Detect suspicious calls to VirtualProtect/WriteProcessMemory targeting security functions.</li>
+                <li>Watch for module stomping behavior (legitimate DLLs overwritten in memory).</li>
+                <li>AMSI bypasses often rely on short instruction patches—signature detection is possible.</li>
+            </ul>
+
+            <h4>⚙️ Usage</h4>
+            <p>Do not run this on production systems. For research:</p>
             <ol>
-                <li>Open your Resource (.rc) file.</li>
-                <li>Add a generic <code>RCDATA</code> resource.</li>
-                <li>Set the Resource ID to <code>101</code> (or modify <code>LoadPEFromResource</code> in the code).</li>
+                <li>Compile as a DLL.</li>
+                <li>Inject into a test process in a sandboxed lab environment.</li>
+                <li>Observe how ETW/AMSI events disappear and how payload execution occurs.</li>
             </ol>
 
-            <p><strong>2. Compilation</strong></p>
-            <p>Compile with Visual Studio or MinGW with the following libraries:</p>
-            <pre><code>advapi32.lib kernel32.lib ntdll.lib</code></pre>
-
-            <p><strong>3. Integration</strong></p>
-            <p>The loader automatically executes when the host DLL is loaded:</p>
-            <pre><code>// The PE from resource ID 101 will be loaded and executed
-// Entry point is called automatically</code></pre>
-
-            <h4>🔒 Security Considerations</h4>
-            <p><strong>⚠️ DISCLAIMER:</strong> This software is provided for <strong>educational and research purposes only</strong>. It interacts with low-level system memory and may trigger antivirus heuristics due to the nature of manual mapping (a common and known malware technique).</p>
-            
+            <h4>📚 References</h4>
             <ul>
-                <li><strong>Use responsibly</strong> and only on systems you own or have explicit permission to test on.</li>
-                <li><strong>Legal Compliance:</strong> Users are responsible for complying with all applicable local and international laws.</li>
-                <li><strong>AV Detection:</strong> Memory loaders are flagged by security software as they bypass normal file-based scanning.</li>
-                <li><strong>Debugging:</strong> Enable the debug console to view detailed logging of the loading process.</li>
+                <li>MITRE ATT&CK: Defense Evasion</li>
+                <li>AMSI bypass research papers</li>
+                <li>ETW patching techniques in malware analysis blogs</li>
             </ul>
 
-            <h4>📚 Technical Details</h4>
-            <p><strong>What the loader handles:</strong></p>
-            <ul>
-                <li>DOS/NT header validation</li>
-                <li>Section mapping with proper alignment</li>
-                <li>Base relocation (HIGHLOW, DIR64, ABSOLUTE)</li>
-                <li>Import descriptor resolution (by name and ordinal)</li>
-                <li>Delay-load import processing</li>
-                <li>Exception directory registration (x64 RUNTIME_FUNCTION tables)</li>
-                <li>SEH frame installation (x86)</li>
-                <li>TLS callback execution</li>
-                <li>Memory protection (PAGE_EXECUTE_READ, PAGE_READWRITE, etc.)</li>
-                <li>Thread-safe loader lock mechanism</li>
-            </ul>
+            <p>Not for malicious use.</p>
 
-            <a href="https://drive.google.com/drive/folders/1iAJyHX_b07wdilLHP84YX8wfyiCaRW67?usp=sharing" target="_blank" class="download-btn">Download PE Loader</a>
+            <a href="https://drive.google.com/drive/folders/11nLpXeo5Txl5d3sX7x8Cca6YeRBZyVtb?usp=sharing" target="_blank" class="download-btn">Download DLL Hollowing Project</a>
         </div>
     </div>
     
