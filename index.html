@@ -375,6 +375,7 @@
                 <div class="project-image"><img src="https://i.ibb.co/8gcLqKnG/cplusplus.png" alt="TAO C2 Plus Two"></div>
                 <div class="project-info">
                     <h3>TAO C2 Plus Two!</h3>
+                    <p><i>Currently Developing Something</i></p>
                     <p>The TAO C2 Python Framework now made for C plus plus!</p>
                 </div>
             </div>
@@ -467,17 +468,27 @@
             <h3>TAO-C2 PLUS TWO (V 1.6.2)</h3>
             <p>TAO-C2 is a C++ version of the Windows TAO-C2 python framework designed for educational research into endpoint management, API-based command-and-control (C2) architectures, and process monitoring techniques.</p>
             
+            <h4>In Development (as of 1/7/2026):</h4>
+            <ul>
+                <strong><li>Modules for live screen capture, keylogging, and remote control.</strong></li>
+                <strong><li>Multiple DNS Handling feature for multiple agents and devices.</strong></li>
+                
+            </ul>
+            
             <h4>Key Features</h4>
             <ul>
                 <li><strong>Hybrid C2 Architecture:</strong> Demonstrates dual-mode communication using standard web APIs (JSONBin) or DNS Tunneling (dnslib) with fall-back mechanisms.</li>
+                <li><strong>Reverse Shell Execution:</strong> A fully functional reverse command shell implemented via redirected process I/O. This fall short against true PTY-backed terminal shells.</li>
                 <li><strong>System Integrity & Persistence:</strong> Done through automated Windows Task Scheduling (schtasks) and file attribute manipulation.</li>
                 <li><strong>Process Hooking:</strong> A C++ Stub Loader (ldr.cpp) and hook.dll (hook.cpp) to evade system monitoring tools.</li>
+                <li><strong>(In Development)</strong> - <i>Multiple DNS Handling for multiple agents and devices.</li></i>
             </ul>
 
             <h4>Modules</h4>
             <p>Currently, this version only offers core main modules <code>cvm.dll</code> and <code>prep.dll</code>. I am currently working on re-integrating the python modules.</p>
             <ul>
                 <li>As per discussed before, <code>cvm.dll</code> is the Sandbox awareness module and <code>prep.dll</code> is environment preparation and obfuscation engine.</li>
+                <li><strong>(In Development)</strong> - <i> Live video capture, remote control, and keylogging modules are currently being implemented, and will be included in the future version 1.6.3. You can view the snippet in <a href="https://gist.github.com/tsaiuwu/e923c08b11cfc94aaf540ac105b5def6">here.</a></i></li>
             </ul>
 
             <h4>Setup and Compilation</h4>
